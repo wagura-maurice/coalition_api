@@ -26,7 +26,7 @@ class TaskCategoryController extends AbstractController
         return [
             'name',
             'description',
-            AllowedFilter::callback('search_text', function ($query, $value) {
+            AllowedFilter::callback('search', function ($query, $value) {
                 $query->where('name', 'like', "%{$value}%")
                     ->orWhere('description', 'like', "%{$value}%");
             }),
