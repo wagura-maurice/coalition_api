@@ -24,17 +24,22 @@ class TaskCatalogController extends AbstractController
     protected function getAllowedFilters(): array
     {
         return [
-            AllowedFilter::callback('category_id', function ($query, $value) {
-                $query->where('category_id', '=', $value);
+            '_uid',
+            'title',
+            'slug',
+            'description',
+            '_priority',
+            '_status',
+            AllowedFilter::callback('search', function ($query, $value) {
+                $query->where('_uid', 'like', "%{$value}%")
+                    ->orWhere('title', 'like', "%{$value}%")
+                    ->orWhere('slug', 'like', "%{$value}%")
+                    ->orWhere('description', 'like', "%{$value}%");
             }),
-            AllowedFilter::callback('title', function ($query, $value) {
-                $query->where('title', 'like', "%{$value}%");
-            }),
-            AllowedFilter::callback('slug', function ($query, $value) {
-                $query->where('slug', 'like', "%{$value}%");
-            }),
-            AllowedFilter::callback('description', function ($query, $value) {
-                $query->where('description', 'like', "%{$value}%");
+            AllowedFilter::callback('category_name', function ($query, $value) {
+                $query->whereHas('category', function($query) use ($value) {
+                    $query->where('name', 'like', "%{$value}%");
+                });
             }),
             AllowedFilter::callback('due_date_range', function ($query, $value) {
                 // Validate the value using the DueDateRangeFormat rule
@@ -56,14 +61,12 @@ class TaskCatalogController extends AbstractController
                     $end = Carbon::createFromFormat('Y-m-d', $dates[1])->endOfDay();
 
                     $query->whereBetween('due_date', [$start, $end]);
+
+                    // \Log::info(print_r([$start, $end], true));
+                    // \Log::info(print_r($query->get()->toArray(), true));
                 }
             }),
-            AllowedFilter::exact('_status'),
-            AllowedFilter::callback('category_name', function ($query, $value) {
-                $query->whereHas('category', function($query) use ($value) {
-                    $query->where('name', 'like', "%{$value}%");
-                });
-            }),
+            AllowedFilter::exact('_status')
         ];
     }
 

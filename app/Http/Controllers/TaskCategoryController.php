@@ -51,7 +51,7 @@ class TaskCategoryController extends AbstractController
 
                     $query->whereBetween('created_at', [$start, $end]);
                 }
-            }),
+            })
         ];
     }
 
