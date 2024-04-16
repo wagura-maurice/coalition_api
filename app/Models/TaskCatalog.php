@@ -21,6 +21,18 @@ class TaskCatalog extends Model
     const COMPLETED = 3;
     const CANCELLED = 4;
 
+    // priority
+    const URGENT = 0;
+    const HIGH = 1;
+    const MEDIUM = 2;
+    const LOW = 3;
+    const CRITICAL = 4;
+    const NORMAL = 5;
+    const EMERGENCY = 6;
+    const DEFERRED = 7;
+    const OPTIONAL = 8;
+    const ROUTINE = 9;
+    
     /**
      * The attributes that are mass assignable.
      *
