@@ -66,7 +66,7 @@ class TaskCatalog extends Model
             'category_id' => 'required|integer',
             'title' => 'required|string',
             'slug' => 'nullable|string',
-            'description' => 'nullable|integer',
+            'description' => 'nullable|string',
             'due_date' => 'required|date',
             '_priority' => 'nullable|integer',
             '_status' => 'nullable|integer'
@@ -80,7 +80,7 @@ class TaskCatalog extends Model
             'category_id' => 'nullable|integer',
             'title' => 'nullable|string',
             'slug' => 'nullable|string',
-            'description' => 'nullable|integer',
+            'description' => 'nullable|string',
             'due_date' => 'nullable|date',
             '_priority' => 'nullable|integer',
             '_status' => 'nullable|integer'
