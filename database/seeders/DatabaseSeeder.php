@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]); */
 
-        \App\Models\TaskCategory::factory(200)->create();
+        \App\Models\TaskCategory::factory(10)->create();
         \App\Models\TaskCatalog::factory(1000)->create();
     }
 }
