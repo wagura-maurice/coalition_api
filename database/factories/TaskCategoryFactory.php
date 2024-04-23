@@ -18,7 +18,7 @@ class TaskCategoryFactory extends Factory
     {
         return [
             'name' => fake()->unique()->company(),
-            'description' => fake()->sentence(15)
+            'description' => $this->faker->paragraph(5)
         ];
     }
 }
