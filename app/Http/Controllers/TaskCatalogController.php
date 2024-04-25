@@ -24,22 +24,15 @@ class TaskCatalogController extends AbstractController
     protected function getAllowedFilters(): array
     {
         return [
-            '_uid',
-            'title',
-            'slug',
-            'description',
-            '_priority',
             '_status',
             AllowedFilter::callback('search', function ($query, $value) {
                 $query->where('_uid', 'like', "%{$value}%")
                     ->orWhere('title', 'like', "%{$value}%")
                     ->orWhere('slug', 'like', "%{$value}%")
-                    ->orWhere('description', 'like', "%{$value}%");
-            }),
-            AllowedFilter::callback('category_name', function ($query, $value) {
-                $query->whereHas('category', function($query) use ($value) {
-                    $query->where('name', 'like', "%{$value}%");
-                });
+                    ->orWhere('description', 'like', "%{$value}%")
+                    ->orWhereHas('category', function($query) use ($value) {
+                        $query->where('name', 'like', "%{$value}%");
+                    });
             }),
             AllowedFilter::callback('due_date_range', function ($query, $value) {
                 // Validate the value using the DueDateRangeFormat rule
