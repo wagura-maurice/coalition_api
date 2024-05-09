@@ -17,7 +17,7 @@ class TaskCatalogFactory extends Factory
     public function definition(): array
     {
         return [
-            '_uid' => generateUID(\App\Models\TaskCatalog::class, $this->faker->numberBetween(4, 9)),
+            '_uid' => $this->faker->unique()->uuid(),
             'category_id' => \App\Models\TaskCategory::inRandomOrder()->value('id'),
             'title' => $this->faker->sentence(),
             'slug' => $this->faker->unique()->slug(),
