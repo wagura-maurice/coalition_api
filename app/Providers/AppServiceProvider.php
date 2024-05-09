@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // DB::statement('SET SESSION sql_require_primary_key=0');
+        DB::statement('SET SESSION sql_require_primary_key=0');
     }
 
     /**
