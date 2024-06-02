@@ -16,11 +16,11 @@ return new class extends Migration
             $table->id();
             $table->string('_uid')->unique();
             $table->foreignId('category_id')->constrained('task_categories')->onDelete('cascade');
+            $table->foreignId('priority_id')->constrained('task_priorities')->onDelete('cascade');
             $table->string('title');
             $table->string('slug')->nullable()->unique(); // Label tag
             $table->text('description')->nullable();
             $table->dateTime('due_date')->nullable(); // Due date
-            $table->integer('_priority')->default(0);
             $table->integer('_status')->default(TaskCatalog::PENDING);
             $table->softDeletes();
             $table->timestamps();
