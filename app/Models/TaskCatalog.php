@@ -20,18 +20,6 @@ class TaskCatalog extends Model
     const PROCESSED = 2;
     const COMPLETED = 3;
     const CANCELLED = 4;
-
-    // priority
-    const URGENT = 0;
-    const HIGH = 1;
-    const MEDIUM = 2;
-    const LOW = 3;
-    const CRITICAL = 4;
-    const NORMAL = 5;
-    const EMERGENCY = 6;
-    const DEFERRED = 7;
-    const OPTIONAL = 8;
-    const ROUTINE = 9;
     
     /**
      * The attributes that are mass assignable.
@@ -41,11 +29,11 @@ class TaskCatalog extends Model
     protected $fillable = [
         '_uid',
         'category_id',
+        'priority_id',
         'title',
         'slug',
         'description',
         'due_date',
-        '_priority',
         '_status'
     ];
 
@@ -59,11 +47,12 @@ class TaskCatalog extends Model
         return TaskCatalogResource::class;
     }
     
-    public static function createRules()
+    public static function createRules(): array
     {
         return [
-            '_uid' => 'required|string|unique:task_catalogs',
-            'category_id' => 'required|integer',
+            '_uid' => ['required', 'string', Rule::unique('task_catalogs', '_uid')],
+            'category_id' => 'required|integer|exists:task_categories,id',
+            'priority_id' => 'required|integer|exists:task_priorities,id',
             'title' => 'required|string',
             'slug' => 'nullable|string',
             'description' => 'nullable|string',
@@ -73,11 +62,12 @@ class TaskCatalog extends Model
         ];
     }
 
-    public static function updateRules(int $id)
+    public static function updateRules(int $id): array
     {
         return [
-            '_uid' => 'nullable|string|' . Rule::unique('task_catalogs', '_uid')->ignore($id),
-            'category_id' => 'nullable|integer',
+            '_uid' => ['nullable', 'string', Rule::unique('task_catalogs', '_uid')->ignore($id)],
+            'category_id' => 'nullable|integer|exists:task_categories,id',
+            'priority_id' => 'nullable|integer|exists:task_priorities,id',
             'title' => 'nullable|string',
             'slug' => 'nullable|string',
             'description' => 'nullable|string',
@@ -90,5 +80,10 @@ class TaskCatalog extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(TaskCategory::class, 'category_id', 'id');
+    }
+
+    public function priority(): BelongsTo
+    {
+        return $this->belongsTo(TaskPriority::class, 'priority_id', 'id');
     }
 }
