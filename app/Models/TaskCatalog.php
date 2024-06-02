@@ -57,7 +57,6 @@ class TaskCatalog extends Model
             'slug' => 'nullable|string',
             'description' => 'nullable|string',
             'due_date' => 'required|date',
-            '_priority' => 'nullable|integer',
             '_status' => 'nullable|integer'
         ];
     }
@@ -72,7 +71,6 @@ class TaskCatalog extends Model
             'slug' => 'nullable|string',
             'description' => 'nullable|string',
             'due_date' => 'nullable|date',
-            '_priority' => 'nullable|integer',
             '_status' => 'nullable|integer'
         ];
     }
