@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\TaskCatalog;
 use Illuminate\Support\Str;
-use App\Models\TaskCategory;
 use Illuminate\Support\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -38,21 +37,17 @@ class TaskCatalogRequest extends FormRequest
     {
         if(request()->route()->originalParameters()) {
             $catalog = TaskCatalog::find((int) request()->route()->originalParameters()['catalog']);
-            $category = TaskCategory::find($this->category_id ?? $catalog->category_id);
 
             $this->merge(array_filter([
-                '_priority' => optional($this)->_priority ? $this->_priority : ($catalog->_priority ?? null),
                 'due_date' => optional($this)->due_date ? Carbon::parse($this->due_date)->toDateTimeString() :  Carbon::now()->toDateTimeString(),
                 '_status' => optional($this)->_status ? $this->_status : ($catalog->_status ?? NULL)
             ]));
         } else {
-            $category = TaskCategory::find($this->category_id);
             $UUID = generateUID(TaskCatalog::class, rand(5, 9));
 
             $this->merge(array_filter([
                 '_uid' => "TASK/CATALOG/" . $UUID,
                 'slug' => strtoupper(Str::slug($this->title, '_') . '_' . $UUID . '_' . Carbon::now()->format('YmdHis')),
-                '_priority' => optional($this)->_priority ? $this->_priority : null,
                 'due_date' => optional($this)->due_date ? Carbon::parse($this->due_date)->toDateTimeString() :  Carbon::now()->toDateTimeString(),
                 '_status' => optional($this)->_status ? $this->_status : NULL
             ]));
