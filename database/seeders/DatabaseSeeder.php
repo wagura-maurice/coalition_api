@@ -15,12 +15,14 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        /* User::factory()->create([
+        User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
-        ]); */
+        ]);
 
-        \App\Models\TaskCategory::factory(10)->create();
-        \App\Models\TaskCatalog::factory(1000)->create();
+        $this->call(TaskCategoriesTableSeeder::class);
+        $this->call(TaskPrioritiesTableSeeder::class);
+        
+        \App\Models\TaskCatalog::factory(100)->create();
     }
 }
