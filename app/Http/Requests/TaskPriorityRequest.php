@@ -2,10 +2,10 @@
 
 namespace App\Http\Requests;
 
-use App\Models\TaskCategory;
+use App\Models\TaskPriority;
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskCategoryRequest extends FormRequest
+class TaskPriorityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,10 @@ class TaskCategoryRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = TaskCategory::createRules();
+        $rules = TaskPriority::createRules();
 
         if (request()->method == 'PUT' || request()->method == 'PATCH') {
-            $rules = array_merge($rules, TaskCategory::updateRules((int) request()->route()->originalParameters()['category']));
+            $rules = array_merge($rules, TaskPriority::updateRules((int) request()->route()->originalParameters()['priority']));
         }
 
         return $rules;
