@@ -82,6 +82,7 @@ class TaskCatalogController extends AbstractController
     protected function getAllowedSorts(): array
     {
         return [
+            'id',
             '_uid',
             'category_id',
             'priority_id',
