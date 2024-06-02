@@ -32,6 +32,9 @@ class TaskCatalogController extends AbstractController
                     ->orWhere('description', 'like', "%{$value}%")
                     ->orWhereHas('category', function($query) use ($value) {
                         $query->where('name', 'like', "%{$value}%");
+                    })
+                    ->orWhereHas('priority', function($query) use ($value) {
+                        $query->where('name', 'like', "%{$value}%");
                     });
             }),
             AllowedFilter::callback('due_date_range', function ($query, $value) {
@@ -66,7 +69,8 @@ class TaskCatalogController extends AbstractController
     protected function getAllowedIncludes(): array
     {
         return [
-            'category'
+            'category',
+            'priority'
         ];
     }
 
@@ -80,11 +84,11 @@ class TaskCatalogController extends AbstractController
         return [
             '_uid',
             'category_id',
+            'priority_id',
             'title',
             'slug',
             'description',
             'due_date',
-            '_priority',
             '_status'
         ];
     }
