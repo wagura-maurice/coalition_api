@@ -23,6 +23,7 @@ class TaskPrioritiesTableSeeder extends Seeder
             array (
                 'id' => 1,
                 'name' => 'low',
+                'color' => 'yellow',
                 'description' => NULL,
                 'deleted_at' => NULL,
                 'created_at' => '2024-06-02 17:20:18',
@@ -32,6 +33,7 @@ class TaskPrioritiesTableSeeder extends Seeder
             array (
                 'id' => 2,
                 'name' => 'medium',
+                'color' => 'green',
                 'description' => NULL,
                 'deleted_at' => NULL,
                 'created_at' => '2024-06-02 17:20:22',
@@ -41,6 +43,7 @@ class TaskPrioritiesTableSeeder extends Seeder
             array (
                 'id' => 3,
                 'name' => 'high',
+                'color' => 'orange',
                 'description' => NULL,
                 'deleted_at' => NULL,
                 'created_at' => '2024-06-02 17:20:25',
@@ -50,6 +53,7 @@ class TaskPrioritiesTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'name' => 'critical',
+                'color' => 'red',
                 'description' => NULL,
                 'deleted_at' => NULL,
                 'created_at' => '2024-06-02 17:20:28',
