@@ -21,7 +21,8 @@ class TaskPriority extends Model
      */
     protected $fillable = [
         'name',
-        'description'
+        'description',
+        'color'
     ];
 
     protected function getRequestClass(): string
@@ -37,7 +38,8 @@ class TaskPriority extends Model
     public static function createRules()
     {
         return [
-            'name' => 'required|string|unique:task_priorities',
+            'name' => ['required', 'string', Rule::unique('task_priorities', 'name')],
+            'color' => ['required', 'string', Rule::unique('task_priorities', 'color')],
             'description' => 'nullable|string'
         ];
     }
@@ -45,7 +47,8 @@ class TaskPriority extends Model
     public static function updateRules(int $id)
     {
         return [
-            'name' => 'nullable|string|' . Rule::unique('task_priorities', 'name')->ignore($id),
+            'name' => ['nullable', 'string', Rule::unique('task_priorities', 'name')->ignore($id)],
+            'color' => ['nullable', 'string', Rule::unique('task_priorities', 'color')->ignore($id)],
             'description' => 'nullable|string'
         ];
     }

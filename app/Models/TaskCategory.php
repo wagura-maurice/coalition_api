@@ -37,7 +37,7 @@ class TaskCategory extends Model
     public static function createRules()
     {
         return [
-            'name' => 'required|string|unique:task_categories',
+            'name' => ['required', 'string', Rule::unique('task_categories', 'name')],
             'description' => 'nullable|string'
         ];
     }
@@ -45,7 +45,7 @@ class TaskCategory extends Model
     public static function updateRules(int $id)
     {
         return [
-            'name' => 'nullable|string|' . Rule::unique('task_categories', 'name')->ignore($id),
+            'name' => ['nullable', 'string', Rule::unique('task_categories', 'name')->ignore($id)],
             'description' => 'nullable|string'
         ];
     }
