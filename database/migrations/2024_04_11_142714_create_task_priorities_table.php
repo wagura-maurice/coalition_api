@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('task_priorities', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
+            $table->string('color')->unique()->nullable();
             $table->text('description')->nullable();
             $table->softDeletes();
             $table->timestamps();
