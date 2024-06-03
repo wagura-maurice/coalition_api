@@ -39,7 +39,7 @@ class TaskPriority extends Model
     {
         return [
             'name' => ['required', 'string', Rule::unique('task_priorities', 'name')],
-            'color' => ['required', 'string', Rule::unique('task_priorities', 'color')],
+            'color' => ['nullable', 'string', Rule::unique('task_priorities', 'color')],
             'description' => 'nullable|string'
         ];
     }
